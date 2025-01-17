@@ -1,0 +1,27 @@
+# Thư mục build
+target/
+build/
+
+# Cấu hình IDE
+.idea/
+*.iml
+*.classpath
+*.project
+.settings/
+
+# Cache
+.mvn/
+.gradle/
+node_modules/
+
+# File log
+*.log
+
+# File hệ thống
+.DS_Store
+Thumbs.db
+*.swp
+
+# File nhạy cảm (nên cấu hình thêm trong git-secrets nếu cần)
+application.properties
+application.yml
