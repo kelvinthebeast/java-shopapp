@@ -12,11 +12,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.print.attribute.standard.Media;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -55,8 +57,15 @@ public class ProductController {
                 return ResponseEntity.badRequest().body(errorMessages);
             }
 
-            MultipartFile file = productDTO.getFile(); // Lấy file từ đối tượng ProductDTO
-            if (file != null) {
+            List<MultipartFile> files = productDTO.getFiles(); // Lấy file từ đối tượng ProductDTO
+
+
+            files = files == null ? new ArrayList<MultipartFile>() : files;
+            for (MultipartFile file: files) {
+
+
+                // kiêm tra kích thước file == 0
+                if (file.getSize() == 0) continue;
                 // Kiểm tra kích thước file (giới hạn 10 MB)
                 if (file.getSize() > 10 * 1024 * 1024) {
                     return ResponseEntity.status(HttpStatus.PAYLOAD_TOO_LARGE)
